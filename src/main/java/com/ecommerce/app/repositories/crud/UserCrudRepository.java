@@ -1,12 +1,12 @@
 package com.ecommerce.app.repositories.crud;
 
 import com.ecommerce.app.model.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserCrudRepository extends CrudRepository<User, Integer> {
+public interface UserCrudRepository extends MongoRepository<User,Integer> {
     /**
      *
      * @param name

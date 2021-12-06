@@ -1,7 +1,7 @@
 package com.ecommerce.app.controllers;
 
 import com.ecommerce.app.model.User;
-import com.ecommerce.app.services.UserServices;
+import com.ecommerce.app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,24 +14,24 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
-@RequestMapping("user")
+@RequestMapping("/user")
 /**
- * Creacion de la clase User controller con el fin de establecer las peticiones
+ * Creacion de la clase User controller con el fin de gestionar las peticiones y metodos http
  */
 public class UserController {
     /**
      *
      */
     @Autowired
-    private UserServices service;
+    private UserService userService;
 
     /**
      * clase que pretende obtener todos los usuarios existentes en la base de datos
      * @return
      */
     @GetMapping("/all")
-    public List<User> getUsers(){
-        return service.getAll();
+    public List<User> getAll(){
+        return userService.getAll();
     }
 
     /**
@@ -41,18 +41,20 @@ public class UserController {
      */
     @PostMapping ("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public User save(@RequestBody User user){
-        return service.save(user);
+    public void save(@RequestBody User user){
+        userService.save(user);
     }
 
-    /**
-     * clase que permite validar la existencia de un usuario a partir de su correo
-     * @param email
-     * @return
-     */
-    @GetMapping("/{email}")
-    public boolean existEmail(@PathVariable("email")String email){
-        return service. getUserByEmail(email);
+    @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public User update(@RequestBody User user){
+        return userService.update(user);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public boolean delete(@PathVariable("id") int id){
+        return userService.delete(id);
     }
 
     /**
@@ -62,8 +64,20 @@ public class UserController {
      * @return
      */
     @GetMapping("/{email}/{password}")
-    public User existUser(@PathVariable("email")String email, @PathVariable("password")String password){
-        return service.getByEmailPass(email, password);
+    public User authenticateUser(@PathVariable("email")String email, @PathVariable("password")String password){
+        return userService.authenticateUser(email, password);
     }
+
+    /**
+     * clase que permite validar la existencia de un usuario a partir de su correo
+     * @param email
+     * @return
+     */
+    @GetMapping("/emailexist/{email}")
+    public boolean emailExists(@PathVariable("email")String email){
+        return userService. emailExists(email);
+    }
+
+
 
 }
