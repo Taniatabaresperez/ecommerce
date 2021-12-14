@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -35,6 +36,16 @@ public class UserController {
     }
 
     /**
+     * clase que pretende obtener un usuario especifico
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Optional<User> getUser(@PathVariable("id") int id){
+        return userService.getUser(id);
+    }
+
+    /**
      * clase que permite guardar un usuario nuevo a partir de la peticion save
      * @param user
      * @return
@@ -45,12 +56,22 @@ public class UserController {
         userService.save(user);
     }
 
+    /**
+     * clase que permite actualizar un usuario
+     * @param user
+     * @return
+     */
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public User update(@RequestBody User user){
         return userService.update(user);
     }
 
+    /**
+     * clase que permite borrar un usuario en especifico
+     * @param id
+     * @return
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int id){

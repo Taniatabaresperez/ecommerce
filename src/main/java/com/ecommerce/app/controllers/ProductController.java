@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
@@ -19,6 +20,11 @@ public class ProductController {
     @GetMapping("/all")
     public List<Product> getAll(){
         return productService.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Product> getProduct(@PathVariable("id") int id){
+        return productService.getProduct(id);
     }
 
     @PostMapping("/new")
