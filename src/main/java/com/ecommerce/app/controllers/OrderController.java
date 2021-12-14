@@ -50,4 +50,18 @@ public class OrderController {
         return service.getByZone(zone);
     }
 
+    @GetMapping("/salesman/{id}")
+    public List<Order> getBySalesManId(@PathVariable("id") int id){
+        return service.getBySalesManId(id);
+    }
+
+    @GetMapping("/state/{status}/{id}")
+    public List<Order> getBySalesManIdAndStatus(@PathVariable("id") Integer id, @PathVariable("status") String status){
+        return service.getBySalesManIdAndStatus(id, status);
+    }
+
+    @GetMapping("/date/{registerDay}/{id}")
+    public List<Order> getByRegisterDayAndSalesManId(@PathVariable("registerDay") String registerDay, @PathVariable("id") Integer id){
+        return service.getByRegisterDayAndSalesManId(registerDay, id);
+    }
 }

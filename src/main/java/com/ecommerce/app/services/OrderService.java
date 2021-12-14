@@ -65,4 +65,16 @@ public class OrderService {
     public List<Order> getByZone(String zone){
         return repository.findByZone(zone);
     }
+
+    public List<Order> getBySalesManId(Integer id){
+        return repository.getBySalesManId(id);
+    }
+
+    public List<Order> getBySalesManIdAndStatus(Integer id, String status){
+        return repository.getBySalesManIdAndStatus(id, status);
+    }
+
+    public List<Order> getByRegisterDayAndSalesManId(String registerDay, Integer id){
+        return repository.getByRegisterDayAndSalesManId(registerDay, id);
+    }
 }

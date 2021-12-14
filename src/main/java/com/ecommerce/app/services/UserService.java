@@ -9,22 +9,44 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ *
+ * @author tania tabares perez
+ */
+
+/**
  * Capa de servicios para implementar la lógica de negocio
  */
 @Service
 public class UserService {
 
+    /**
+     * Representa al user repository
+     */
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Obtiene la lista de usuarios
+     * @return
+     */
     public List<User> getAll(){
         return userRepository.getAll();
     }
 
+    /**
+     * Obtiene un usuario en especifico por medio de su id
+     * @param id
+     * @return
+     */
     public Optional<User> getUser(int id){
         return userRepository.getUserById(id);
     }
 
+    /**
+     * Crea un usuario
+     * @param user
+     * @return
+     */
     public User save(User user){
         if (user.getId() == null){
             return user;
@@ -42,6 +64,11 @@ public class UserService {
         }
     }
 
+    /**
+     * modifica un usuario existente
+     * @param user
+     * @return
+     */
     public User update(User user){
         if (user.getId()!= null){
             Optional<User> dbUser = userRepository.getUserById(user.getId());
@@ -84,10 +111,20 @@ public class UserService {
         }return user;
     }
 
+    /**
+     * verifica la existencia de un correo electronico en la base de datos
+     * @param email
+     * @return
+     */
     public boolean emailExists(String email) {
         return userRepository.emailExists(email);
     }
 
+    /**
+     * Borra un usuario en especifico
+     * @param userId
+     * @return
+     */
     public boolean delete(int userId){
         return getUser(userId).map(user -> {
             userRepository.delete(user);
@@ -95,6 +132,12 @@ public class UserService {
         }).orElse(false);
     }
 
+    /**
+     * valida si un usuario existe con el correo y contraseñas recibidos
+     * @param email
+     * @param password
+     * @return
+     */
     public User authenticateUser(String email, String password){
         Optional<User> user = userRepository.authenticateUser(email, password);
         if (user.isEmpty()){
