@@ -52,8 +52,8 @@ public class UserController {
      */
     @PostMapping ("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody User user){
-        userService.save(user);
+    public User save(@RequestBody User user){
+        return userService.save(user);
     }
 
     /**
@@ -98,7 +98,5 @@ public class UserController {
     public boolean emailExists(@PathVariable("email")String email){
         return userService. emailExists(email);
     }
-
-
 
 }

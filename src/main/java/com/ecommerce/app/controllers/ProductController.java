@@ -29,8 +29,8 @@ public class ProductController {
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody Product product){
-        productService.save(product);
+    public Product save(@RequestBody Product product){
+        return productService.save(product);
     }
 
     @PutMapping("/update")

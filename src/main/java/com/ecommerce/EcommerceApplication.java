@@ -1,7 +1,7 @@
 package com.ecommerce;
 
-import com.ecommerce.app.repositories.OrderRepository;
-import com.ecommerce.app.repositories.crud.OrderCrudRepository;
+//import com.ecommerce.app.repositories.OrderRepository;
+//import com.ecommerce.app.repositories.crud.OrderCrudRepository;
 import com.ecommerce.app.repositories.crud.ProductCrudRepository;
 import com.ecommerce.app.repositories.crud.UserCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EcommerceApplication implements CommandLineRunner {
 
-    @Autowired
-    OrderCrudRepository orderCrudRepository;
+//    @Autowired
+//    OrderCrudRepository orderCrudRepository;
     @Autowired
     ProductCrudRepository productCrudRepository;
     @Autowired
@@ -24,7 +24,7 @@ public class EcommerceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        orderCrudRepository.deleteAll();
+//        orderCrudRepository.deleteAll();
         productCrudRepository.deleteAll();
         userCrudRepository.deleteAll();
     }

@@ -48,21 +48,53 @@ public class UserService {
      * @return
      */
     public User save(User user){
-        if (user.getId() == null){
+
+        if (user.getIdentification() == null
+                || user.getName() == null
+                || user.getAddress() == null
+                || user.getCellPhone() == null
+                || user.getEmail() == null
+                || user.getPassword() == null
+                || user.getZone() == null
+                || user.getType() == null){
             return user;
-        }else{
-            Optional<User> dbUser = userRepository.getUserById(user.getId());
-            if (dbUser.isEmpty()){
-                if(emailExists(user.getEmail()) == false){
-                    return userRepository.save(user);
-                }else{
-                    return user;
-                }
-            }else{
-                return user;
+        }
+        Optional<User> userIdMax = userRepository.lastUserId();
+        if (user.getId() == null){
+            if (userIdMax.isPresent()){
+                user.setId(userIdMax.get().getId() + 1);
+            }else {
+                user.setId(1);
             }
         }
+        Optional<User> userTemp = userRepository.getUserById(user.getId());
+        if (userTemp.isEmpty()){
+            if (!emailExists(user.getEmail())){
+                return userRepository.save(user);
+            }
+            user.setId(null);
+            return user;
+        }
+        user.setId(null);
+        return user;
     }
+
+//    public User save(User user){
+//        if (user.getId() == null){
+//            return user;
+//        }else{
+//            Optional<User> dbUser = userRepository.getUserById(user.getId());
+//            if (dbUser.isEmpty()){
+//                if(emailExists(user.getEmail()) == false){
+//                    return userRepository.save(user);
+//                }else{
+//                    return user;
+//                }
+//            }else{
+//                return user;
+//            }
+//        }
+//    }
 
     /**
      * modifica un usuario existente
@@ -79,12 +111,12 @@ public class UserService {
                 if (user.getName()!= null){
                     dbUser.get().setName(user.getName());
                 }
-                if (user.getBirthtDay()!= null){
-                    dbUser.get().setName(user.getName());
-                }
-                if (user.getMonthBirthtDay()!= null){
-                    dbUser.get().setName(user.getName());
-                }
+//                if (user.getBirthtDay()!= null){
+//                    dbUser.get().setName(user.getName());
+//                }
+//                if (user.getMonthBirthtDay()!= null){
+//                    dbUser.get().setName(user.getName());
+//                }
                 if (user.getAddress()!= null){
                     dbUser.get().setAddress(user.getAddress());
                 }
