@@ -79,23 +79,6 @@ public class UserService {
         return user;
     }
 
-//    public User save(User user){
-//        if (user.getId() == null){
-//            return user;
-//        }else{
-//            Optional<User> dbUser = userRepository.getUserById(user.getId());
-//            if (dbUser.isEmpty()){
-//                if(emailExists(user.getEmail()) == false){
-//                    return userRepository.save(user);
-//                }else{
-//                    return user;
-//                }
-//            }else{
-//                return user;
-//            }
-//        }
-//    }
-
     /**
      * modifica un usuario existente
      * @param user
@@ -111,12 +94,12 @@ public class UserService {
                 if (user.getName()!= null){
                     dbUser.get().setName(user.getName());
                 }
-//                if (user.getBirthtDay()!= null){
-//                    dbUser.get().setName(user.getName());
-//                }
-//                if (user.getMonthBirthtDay()!= null){
-//                    dbUser.get().setName(user.getName());
-//                }
+                if (user.getBirthtDay()!= null){
+                    dbUser.get().setName(user.getName());
+                }
+                if (user.getMonthBirthtDay()!= null){
+                    dbUser.get().setName(user.getName());
+                }
                 if (user.getAddress()!= null){
                     dbUser.get().setAddress(user.getAddress());
                 }
@@ -176,5 +159,9 @@ public class UserService {
             return new User();
         }
         return user.get();
+    }
+
+    public List<User> getByMonthBirthtDay(String month){
+        return userRepository.getByMonthBirthtDay(month);
     }
 }

@@ -38,5 +38,11 @@ public class ProductRepository {
         return productCrudRepository.findTopByOrderByIdDesc();
     }
 
+    public List<Product> getByPrice(double price){
+        return productCrudRepository.findByPrice(price);
+    }
 
+    public List<Product> getByDescriptionContains(String description){
+        return productCrudRepository.findByDescriptionContainingIgnoreCase(description);
+    }
 }
